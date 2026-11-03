@@ -10,6 +10,19 @@ const emptyToUndefined = (value: unknown) => {
   return value;
 };
 
+const databaseUrlSchema = z
+  .string()
+  .trim()
+  .min(1, "DATABASE_URL is required")
+  .refine((value) => {
+    try {
+      const url = new URL(value);
+      return url.protocol === "postgresql:" || url.protocol === "postgres:";
+    } catch {
+      return false;
+    }
+  }, "DATABASE_URL must be a postgresql:// connection string");
+
 const envSchema = z.object({
   PORT: z.preprocess(
     emptyToUndefined,
@@ -19,6 +32,7 @@ const envSchema = z.object({
     emptyToUndefined,
     z.string().url().default("http://localhost:3000"),
   ),
+  DATABASE_URL: z.preprocess(emptyToUndefined, databaseUrlSchema),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -32,4 +46,5 @@ if (!parsed.success) {
 export const config = {
   port: parsed.data.PORT,
   frontendOrigin: parsed.data.FRONTEND_ORIGIN,
+  databaseUrl: parsed.data.DATABASE_URL,
 };
