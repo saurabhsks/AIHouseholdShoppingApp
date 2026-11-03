@@ -3,7 +3,9 @@ import express from "express";
 import { config } from "./config/env";
 import { errorHandler } from "./middleware/errorHandler";
 import { notFoundHandler } from "./middleware/notFound";
+import { categoryRouter } from "./routes/categories";
 import { healthRouter } from "./routes/health";
+import { productRouter } from "./routes/products";
 
 export function createApp() {
   const app = express();
@@ -16,6 +18,8 @@ export function createApp() {
   );
 
   app.use("/api/health", healthRouter);
+  app.use("/api/categories", categoryRouter);
+  app.use("/api/products", productRouter);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
