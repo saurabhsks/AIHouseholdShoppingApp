@@ -58,6 +58,16 @@ const catalogue: CategorySeed[] = [
           { label: "200 g", amount: 200, unit: Unit.G, pricePaise: 8500, stockQuantity: 30 },
         ],
       },
+      {
+        slug: "closeup-everfresh",
+        name: "Closeup Everfresh",
+        brand: "Closeup",
+        description:
+          "Gel toothpaste. Out of stock. Similar in-stock options are Colgate and Pepsodent.",
+        variants: [
+          { label: "150 g", amount: 150, unit: Unit.G, pricePaise: 11000, stockQuantity: 0 },
+        ],
+      },
     ],
   },
   {
@@ -102,6 +112,16 @@ const catalogue: CategorySeed[] = [
         ],
       },
       {
+        slug: "wheel-detergent-powder",
+        name: "Wheel Detergent Powder",
+        brand: "Wheel",
+        description:
+          "Detergent powder. Out of stock. Similar in-stock options are Surf Excel, Ghadi, and Ariel.",
+        variants: [
+          { label: "1 kg", amount: 1000, unit: Unit.G, pricePaise: 9800, stockQuantity: 0 },
+        ],
+      },
+      {
         slug: "retired-wash-powder",
         name: "Retired Wash Powder",
         brand: "Retired",
@@ -137,6 +157,16 @@ const catalogue: CategorySeed[] = [
           { label: "1 L", amount: 1000, unit: Unit.ML, pricePaise: 18500, stockQuantity: 0 },
         ],
       },
+      {
+        slug: "dhara-sunflower-oil",
+        name: "Dhara Sunflower Oil",
+        brand: "Dhara",
+        description:
+          "Sunflower oil. Out of stock. A similar in-stock option is Fortune Sunflower Oil.",
+        variants: [
+          { label: "1 L", amount: 1000, unit: Unit.ML, pricePaise: 15500, stockQuantity: 0 },
+        ],
+      },
     ],
   },
   {
@@ -162,6 +192,16 @@ const catalogue: CategorySeed[] = [
           { label: "340 ml", amount: 340, unit: Unit.ML, pricePaise: 28500, stockQuantity: 11 },
         ],
       },
+      {
+        slug: "head-shoulders-smooth",
+        name: "Head & Shoulders Smooth",
+        brand: "Head & Shoulders",
+        description:
+          "Anti-dandruff shampoo. Out of stock. Similar in-stock options are Clinic Plus and Dove.",
+        variants: [
+          { label: "180 ml", amount: 180, unit: Unit.ML, pricePaise: 19900, stockQuantity: 0 },
+        ],
+      },
     ],
   },
   {
@@ -184,6 +224,16 @@ const catalogue: CategorySeed[] = [
         description: "Germ-protection bathing soap.",
         variants: [
           { label: "125 g", amount: 125, unit: Unit.G, pricePaise: 3000, stockQuantity: 70 },
+        ],
+      },
+      {
+        slug: "lux-soft-touch",
+        name: "Lux Soft Touch",
+        brand: "Lux",
+        description:
+          "Bathing soap. Out of stock. Similar in-stock options are Lifebuoy and Santoor.",
+        variants: [
+          { label: "125 g", amount: 125, unit: Unit.G, pricePaise: 4000, stockQuantity: 0 },
         ],
       },
     ],
@@ -229,6 +279,16 @@ const catalogue: CategorySeed[] = [
         ],
       },
       {
+        slug: "daawat-basmati",
+        name: "Daawat Basmati Rice",
+        brand: "Daawat",
+        description:
+          "Basmati rice. Out of stock. A similar in-stock option is India Gate Basmati Rice.",
+        variants: [
+          { label: "1 kg", amount: 1000, unit: Unit.G, pricePaise: 17500, stockQuantity: 0 },
+        ],
+      },
+      {
         slug: "aashirvaad-atta",
         name: "Aashirvaad Atta",
         brand: "Aashirvaad",
@@ -252,6 +312,16 @@ const catalogue: CategorySeed[] = [
         variants: [
           { label: "500 ml", amount: 500, unit: Unit.ML, pricePaise: 11500, stockQuantity: 19 },
           { label: "975 ml", amount: 975, unit: Unit.ML, pricePaise: 19900, stockQuantity: 9 },
+        ],
+      },
+      {
+        slug: "dettol-antiseptic",
+        name: "Dettol Antiseptic Liquid",
+        brand: "Dettol",
+        description:
+          "Antiseptic liquid. Out of stock. A similar in-stock cleaner is Lizol.",
+        variants: [
+          { label: "250 ml", amount: 250, unit: Unit.ML, pricePaise: 14900, stockQuantity: 0 },
         ],
       },
     ],

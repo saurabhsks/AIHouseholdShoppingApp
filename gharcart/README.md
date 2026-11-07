@@ -7,9 +7,9 @@ GharCart is an AI shopping assistant for household essentials. The website and t
 | Program | Directory | URL | Responsibility |
 | --- | --- | --- | --- |
 | Frontend | `frontend/` | http://localhost:3000 | The website people see. It never holds the Gemini API key. |
-| Backend | `backend/` | http://localhost:4000 | The API. It validates requests, reads the catalogue, and will own carts and orders. |
+| Backend | `backend/` | http://localhost:4000 | The API. It validates requests, reads the catalogue, and calculates the cart total. |
 
-The browser calls the backend directly. `GET /api/health` confirms the API process is running. It does not check the database. Catalogue routes do:
+The browser calls the backend directly. Open http://localhost:3000 and use Products to browse the catalogue. The cart is one shared development cart for this machine. Prices and stock are checked by the API. `GET /api/health` confirms the API process is running and does not query the database.
 
 ```bash
 curl http://localhost:4000/api/categories

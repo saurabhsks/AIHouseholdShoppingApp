@@ -1,4 +1,5 @@
 import { BackendStatus } from "@/components/BackendStatus";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -11,10 +12,15 @@ export default function HomePage() {
           Household shopping, in plain language.
         </h1>
         <p className="max-w-2xl text-lg leading-8 text-muted">
-          GharCart will turn a request such as “toothpaste, the cheapest
-          detergent, and a total under ₹1,500” into a cart you can review. This
-          first screen only checks that the website can reach the API.
+          Browse household essentials, compare pack sizes, and review a cart
+          before anything is ordered.
         </p>
+        <Link
+          href="/products"
+          className="inline-flex h-11 w-fit items-center rounded-full bg-[#1f6b4a] px-5 text-sm font-medium text-white"
+        >
+          Browse products
+        </Link>
       </header>
 
       <BackendStatus />
@@ -24,8 +30,8 @@ export default function HomePage() {
           What comes next
         </h2>
         <p className="mt-2">
-          The product catalogue, shopping cart, Gemini assistant, and checkout
-          are later phases. Nothing on this page places an order.
+          The Gemini assistant and checkout come later. Nothing on this page
+          places an order.
         </p>
       </section>
     </main>
