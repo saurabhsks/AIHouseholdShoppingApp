@@ -13,34 +13,39 @@ export function BackendStatus() {
   const apiBaseUrl = getApiBaseUrl();
   const [state, setState] = useState<StatusState>({ kind: "loading" });
 
-  const checkHealth = useCallback(async () => {
-    setState({ kind: "loading" });
-
+  const loadHealth = useCallback(async (): Promise<StatusState> => {
     try {
       const response = await fetch(`${apiBaseUrl}/api/health`);
       const body: unknown = await response.json();
 
       if (!response.ok || !isHealthResponse(body)) {
-        setState({
+        return {
           kind: "error",
           message: "The backend replied, but the health response was not valid.",
-        });
-        return;
+        };
       }
 
-      setState({ kind: "ok", health: body });
+      return { kind: "ok", health: body };
     } catch {
-      setState({
+      return {
         kind: "error",
         message:
           "The frontend could not reach the backend. Start it with npm run dev in gharcart/backend, then try again.",
-      });
+      };
     }
   }, [apiBaseUrl]);
 
   useEffect(() => {
-    void checkHealth();
-  }, [checkHealth]);
+    let ignore = false;
+    void loadHealth().then((next) => {
+      if (!ignore) {
+        setState(next);
+      }
+    });
+    return () => {
+      ignore = true;
+    };
+  }, [loadHealth]);
 
   const statusText =
     state.kind === "loading"
@@ -104,7 +109,8 @@ export function BackendStatus() {
       <button
         type="button"
         onClick={() => {
-          void checkHealth();
+          setState({ kind: "loading" });
+          void loadHealth().then(setState);
         }}
         className="mt-5 inline-flex h-11 items-center justify-center rounded-full bg-[#1f6b4a] px-5 text-sm font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f6b4a] disabled:cursor-wait disabled:opacity-70"
         disabled={state.kind === "loading"}

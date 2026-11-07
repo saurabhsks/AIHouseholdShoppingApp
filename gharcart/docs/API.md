@@ -96,3 +96,75 @@ An unknown or inactive id returns `404`:
   }
 }
 ```
+
+## Cart
+
+There is one development cart. It is created the first time the cart is read, and every browser on this machine shares it. The cart stores quantity only. Prices and stock are read from the catalogue when the cart is returned. The browser does not send a total.
+
+`available` is false when the pack is inactive or the saved quantity is greater than the current stock. That line is still returned, its `lineTotalPaise` is `0`, and it is left out of `totalPaise`.
+
+### GET /api/cart
+
+```bash
+curl http://localhost:4000/api/cart
+```
+
+```json
+{
+  "cart": {
+    "id": "cm...",
+    "items": [
+      {
+        "id": "cm...",
+        "quantity": 2,
+        "available": true,
+        "lineTotalPaise": 32000,
+        "variant": {
+          "id": "cm...",
+          "label": "1 L",
+          "amount": 1000,
+          "unit": "ML",
+          "pricePaise": 16000,
+          "stockQuantity": 18,
+          "productName": "Fortune Sunflower Oil",
+          "brand": "Fortune",
+          "productId": "cm...",
+          "productSlug": "fortune-sunflower-oil",
+          "categorySlug": "cooking-oil"
+        }
+      }
+    ],
+    "totalPaise": 32000
+  }
+}
+```
+
+### POST /api/cart/items
+
+Sets the quantity for a pack. If that pack is already in the cart, the quantity is replaced. It is not added to the existing quantity, and a second line is not created.
+
+```bash
+curl -X POST http://localhost:4000/api/cart/items \
+  -H "Content-Type: application/json" \
+  -d '{"variantId":"cm...","quantity":2}'
+```
+
+The response is the same cart object as `GET /api/cart`. An unknown pack returns `404`. An out-of-stock pack returns `400` with code `OUT_OF_STOCK`. A quantity above the current stock returns `400` with code `INSUFFICIENT_STOCK`.
+
+### PATCH /api/cart/items/:itemId
+
+Replaces the quantity for one line.
+
+```bash
+curl -X PATCH http://localhost:4000/api/cart/items/cm... \
+  -H "Content-Type: application/json" \
+  -d '{"quantity":3}'
+```
+
+### DELETE /api/cart/items/:itemId
+
+Removes one line and returns the updated cart.
+
+```bash
+curl -X DELETE http://localhost:4000/api/cart/items/cm...
+```
