@@ -33,6 +33,11 @@ const envSchema = z.object({
     z.string().url().default("http://localhost:3000"),
   ),
   DATABASE_URL: z.preprocess(emptyToUndefined, databaseUrlSchema),
+  GEMINI_API_KEY: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  LLM_MODEL: z.preprocess(
+    emptyToUndefined,
+    z.string().min(1).default("gemini-3.5-flash"),
+  ),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -47,4 +52,6 @@ export const config = {
   port: parsed.data.PORT,
   frontendOrigin: parsed.data.FRONTEND_ORIGIN,
   databaseUrl: parsed.data.DATABASE_URL,
+  geminiApiKey: parsed.data.GEMINI_API_KEY,
+  llmModel: parsed.data.LLM_MODEL,
 };

@@ -11,11 +11,12 @@
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
     "db:generate": "prisma generate",
-    "test": "DATABASE_URL=postgresql://$(whoami)@127.0.0.1:5432/gharcart_test prisma migrate deploy && DATABASE_URL=postgresql://$(whoami)@127.0.0.1:5432/gharcart_test prisma db seed && DATABASE_URL=postgresql://$(whoami)@127.0.0.1:5432/gharcart_test tsx --test src/catalogue.test.ts src/cart.test.ts"
+    "test": "npm --prefix ../ai run build && DATABASE_URL=postgresql://$(whoami)@127.0.0.1:5432/gharcart_test prisma migrate deploy && DATABASE_URL=postgresql://$(whoami)@127.0.0.1:5432/gharcart_test prisma db seed && DATABASE_URL=postgresql://$(whoami)@127.0.0.1:5432/gharcart_test tsx --test src/catalogue.test.ts src/cart.test.ts src/ai.test.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
+    "@gharcart/ai": "file:../ai",
     "cors": "^2.8.6",
     "dotenv": "^18.0.9",
     "express": "^5.3.0",

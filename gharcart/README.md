@@ -1,6 +1,6 @@
 # GharCart
 
-GharCart is an AI shopping assistant for household essentials. The website and the API run as two local programs. The API reads a seeded household catalogue from PostgreSQL. The shopping pages and the Gemini assistant come in later phases.
+GharCart is an AI shopping assistant for household essentials. The website and the API run as two local programs. The API reads a seeded household catalogue from PostgreSQL. `POST /api/ai/chat` can interpret one shopping sentence with Gemini. It does not change the cart. The assistant screen comes later.
 
 ## Programs and ports
 
@@ -100,9 +100,11 @@ cp frontend/.env.example frontend/.env.local
 | `PORT` | Backend | `4000` |
 | `FRONTEND_ORIGIN` | Backend, for CORS | `http://localhost:3000` |
 | `DATABASE_URL` | Backend | Required. No default. |
+| `GEMINI_API_KEY` | Backend only | Empty until you create a free Gemini key. |
+| `LLM_MODEL` | Backend | `gemini-3.5-flash` |
 | `NEXT_PUBLIC_API_URL` | Frontend | `http://localhost:4000` |
 
-`.env` files are gitignored. Commit `.env.example` only, with the values left blank. When the Gemini key is added in a later phase, it belongs in a server `.env` file. The frontend must not receive it. A `NEXT_PUBLIC_` variable is visible in the browser, so it is the wrong place for a secret.
+`.env` files are gitignored. Commit `.env.example` only, with the values left blank. Put `GEMINI_API_KEY` in `backend/.env` only. The frontend must not receive it. A `NEXT_PUBLIC_` variable is visible in the browser, so it is the wrong place for a secret.
 
 ## Scripts
 
