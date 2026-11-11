@@ -168,3 +168,43 @@ Removes one line and returns the updated cart.
 ```bash
 curl -X DELETE http://localhost:4000/api/cart/items/cm...
 ```
+
+## POST /api/ai/chat
+
+Turns one shopping sentence into structured JSON. It does not search the catalogue and it does not change the cart. `cartChanged` is always `false`.
+
+The Gemini key stays in `backend/.env` as `GEMINI_API_KEY`. Create it in Google AI Studio and do not attach billing. `LLM_MODEL` defaults to `gemini-3.5-flash` when it is empty. If the key is missing, the catalogue and cart still work, and this route returns `503`.
+
+```bash
+curl -X POST http://localhost:4000/api/ai/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"cheapest detergent and Colgate toothpaste under ₹1,500"}'
+```
+
+```json
+{
+  "interpretation": {
+    "items": [
+      {
+        "text": "detergent",
+        "brand": null,
+        "amount": null,
+        "unit": null,
+        "selection": "cheapest"
+      },
+      {
+        "text": "toothpaste",
+        "brand": "Colgate",
+        "amount": null,
+        "unit": null,
+        "selection": "specific"
+      }
+    ],
+    "budgetPaise": 150000
+  },
+  "reply": "You want the cheapest detergent and Colgate toothpaste, with a budget of ₹1,500.",
+  "cartChanged": false
+}
+```
+
+An empty message returns `400` `VALIDATION_ERROR`. A model reply that is not the expected JSON returns `502` `MODEL_OUTPUT_INVALID`. A timeout or rate limit returns `503` `AI_UNAVAILABLE`. A missing key returns `503` `AI_NOT_CONFIGURED`.
